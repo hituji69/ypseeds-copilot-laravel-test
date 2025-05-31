@@ -11,12 +11,19 @@ class Property extends Model
     
     protected $fillable = [
         'name',
+        'description',
         'price',
         'type',
         'address',
         'area',
         'nearest_station',
-        'image_path'
+        'image_path',
+        'equipment_conditions',
+        'image_1',
+        'image_2',
+        'image_3',
+        'image_4',
+        'image_5'
     ];
 
     protected $casts = [
