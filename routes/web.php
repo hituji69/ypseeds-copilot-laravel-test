@@ -2,11 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListController;
+use App\Http\Controllers\TopController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', [TopController::class, 'index']);
 Route::get('/list/{area}', [ListController::class, 'show']);
 
 Route::get('/property/{id}', function ($id) {
