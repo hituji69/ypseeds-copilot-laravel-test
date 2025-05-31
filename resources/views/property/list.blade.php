@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $areaNameJa }}の物件一覧</title>
+    <title>{{ App\Helpers\Common::getJapaneseAreaName($area) }}の物件一覧</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -103,7 +103,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>{{ $areaNameJa }}の物件一覧</h1>
+        <h1>{{ App\Helpers\Common::getJapaneseAreaName($area) }}の物件一覧</h1>
         
         @if($properties->count() > 0)
             <div class="property-grid">
@@ -137,7 +137,7 @@
             </div>
         @else
             <div class="no-properties">
-                {{ $areaNameJa }}エリアの物件は現在登録されていません。
+                {{ App\Helpers\Common::getJapaneseAreaName($area) }}エリアの物件は現在登録されていません。
             </div>
         @endif
     </div>
