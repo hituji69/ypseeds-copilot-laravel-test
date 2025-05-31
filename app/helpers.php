@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Helpers;
-
-class Common
-{
+if (!function_exists('getAreaNameMap')) {
     /**
      * エリア名マッピングテーブル
      */
-    public static function getAreaNameMap()
+    function getAreaNameMap()
     {
         return [
             // 23区
@@ -63,13 +60,15 @@ class Common
             'nishitokyo' => '西東京市',
         ];
     }
+}
 
+if (!function_exists('getJapaneseAreaName')) {
     /**
      * エリア英語名から日本語名に変換
      */
-    public static function getJapaneseAreaName($area)
+    function getJapaneseAreaName($area)
     {
-        $areaNameMap = self::getAreaNameMap();
+        $areaNameMap = getAreaNameMap();
         return $areaNameMap[$area] ?? ucfirst($area);
     }
 }
