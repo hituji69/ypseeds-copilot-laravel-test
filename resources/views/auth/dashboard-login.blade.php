@@ -134,7 +134,7 @@
             メールアドレスとパスワードを入力
         </div>
         
-        <form method="POST" action="{{ route('dashboard.login') }}">
+        <form method="POST" action="{{ route('login') }}">
             @csrf
             
             <div class="form-group">

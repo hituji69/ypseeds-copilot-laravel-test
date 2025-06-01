@@ -22,14 +22,8 @@ Route::post('/inquiry/{property_id}', [InquiryController::class, 'store']);
 
 // Authentication routes under dashboard
 Route::middleware('guest')->prefix('dashboard')->group(function () {
-    Route::get('login', [DashboardAuthController::class, 'create'])->name('dashboard.login');
+    Route::get('login', [DashboardAuthController::class, 'create'])->name('login');
     Route::post('login', [DashboardAuthController::class, 'store']);
-});
-
-// Keep existing auth routes for backward compatibility
-Route::middleware('guest')->prefix('dashboard')->group(function () {
-    Route::get('auth/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-    Route::post('auth/login', [AuthenticatedSessionController::class, 'store']);
 });
 
 Route::middleware('auth')->group(function () {
