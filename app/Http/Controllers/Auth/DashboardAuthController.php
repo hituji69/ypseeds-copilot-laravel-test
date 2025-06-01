@@ -31,7 +31,7 @@ class DashboardAuthController extends Controller
         $password = $request->input('password');
 
         // Check for root user authentication
-        if ($username === 'root' && $password === env('DASHBOARD_PASSWORD')) {
+        if ($username === 'root' && $password === (env('DASHBOARD_PASSWORD') ?: config('dashboard.password'))) {
             $request->session()->regenerate();
             $request->session()->put('dashboard_logged_in', true);
             $request->session()->put('dashboard_user', 'root');

@@ -22,10 +22,9 @@ class DashboardAuthTest extends TestCase
 
     public function test_root_user_can_login(): void
     {
-        // Set the dashboard password for testing
-        config(['app.env' => 'testing']);
-        putenv('DASHBOARD_PASSWORD=secret123');
-
+        // Mock the environment variable for testing
+        $this->app['config']->set('dashboard.password', 'secret123');
+        
         $response = $this->post('/dashboard/login', [
             'username' => 'root',
             'password' => 'secret123',
@@ -38,7 +37,7 @@ class DashboardAuthTest extends TestCase
 
     public function test_root_user_login_with_wrong_password(): void
     {
-        putenv('DASHBOARD_PASSWORD=secret123');
+        $this->app['config']->set('dashboard.password', 'secret123');
 
         $response = $this->post('/dashboard/login', [
             'username' => 'root',
@@ -52,7 +51,7 @@ class DashboardAuthTest extends TestCase
     public function test_root_user_can_logout(): void
     {
         // Login as root
-        putenv('DASHBOARD_PASSWORD=secret123');
+        $this->app['config']->set('dashboard.password', 'secret123');
         
         $this->post('/dashboard/login', [
             'username' => 'root',
@@ -77,7 +76,7 @@ class DashboardAuthTest extends TestCase
 
     public function test_dashboard_accessible_when_root_logged_in(): void
     {
-        putenv('DASHBOARD_PASSWORD=secret123');
+        $this->app['config']->set('dashboard.password', 'secret123');
         
         // Login as root
         $this->post('/dashboard/login', [
