@@ -204,7 +204,7 @@
                 </li>
             </ul>
             
-            <form class="logout-form" method="POST" action="{{ route('logout') }}">
+            <form class="logout-form" method="POST" action="{{ route('dashboard.logout') }}">
                 @csrf
                 <button type="submit" class="logout-btn">
                     <span class="icon">🚪</span>ログアウト
@@ -218,7 +218,15 @@
                 <div class="header-flex">
                     <h1>@yield('page-title', 'ダッシュボード')</h1>
                     <div class="user-info">
-                        <span>{{ auth()->user()->name }}さん</span>
+                        <span>
+                            @if(session('dashboard_user') === 'root')
+                                rootユーザさん
+                            @elseif(auth()->check())
+                                {{ auth()->user()->name }}さん
+                            @else
+                                ゲストさん
+                            @endif
+                        </span>
                     </div>
                 </div>
             </div>
