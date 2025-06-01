@@ -12,7 +12,7 @@ class AuthTest extends TestCase
 
     public function test_login_page_loads(): void
     {
-        $response = $this->get('/login');
+        $response = $this->get('/dashboard/login');
         
         $response->assertStatus(200);
         $response->assertSee('ログイン');
@@ -22,7 +22,7 @@ class AuthTest extends TestCase
 
     public function test_register_page_loads(): void
     {
-        $response = $this->get('/register');
+        $response = $this->get('/dashboard/register');
         
         $response->assertStatus(200);
         $response->assertSee('アカウント作成');
@@ -33,7 +33,7 @@ class AuthTest extends TestCase
 
     public function test_user_can_register(): void
     {
-        $response = $this->post('/register', [
+        $response = $this->post('/dashboard/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => 'password123',
@@ -51,7 +51,7 @@ class AuthTest extends TestCase
             'password' => bcrypt('password123'),
         ]);
 
-        $response = $this->post('/login', [
+        $response = $this->post('/dashboard/login', [
             'email' => 'test@example.com',
             'password' => 'password123',
         ]);
@@ -74,7 +74,7 @@ class AuthTest extends TestCase
 
     public function test_login_with_invalid_credentials(): void
     {
-        $response = $this->post('/login', [
+        $response = $this->post('/dashboard/login', [
             'email' => 'invalid@example.com',
             'password' => 'wrongpassword',
         ]);

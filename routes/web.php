@@ -15,8 +15,8 @@ Route::get('/property/{id}', [PropertyController::class, 'show']);
 Route::get('/inquiry/{property_id}', [InquiryController::class, 'show']);
 Route::post('/inquiry/{property_id}', [InquiryController::class, 'store']);
 
-// Authentication routes
-Route::middleware('guest')->group(function () {
+// Authentication routes under dashboard
+Route::middleware('guest')->prefix('dashboard')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
     Route::post('register', [RegisteredUserController::class, 'store']);
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
