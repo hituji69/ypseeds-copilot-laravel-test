@@ -22,7 +22,9 @@ class AuthTest extends TestCase
 
     public function test_register_page_loads(): void
     {
-        $response = $this->get('/dashboard/register');
+        $user = User::factory()->create();
+        
+        $response = $this->actingAs($user)->get('/dashboard/register');
         
         $response->assertStatus(200);
         $response->assertSee('アカウント作成');
@@ -33,7 +35,9 @@ class AuthTest extends TestCase
 
     public function test_user_can_register(): void
     {
-        $response = $this->post('/dashboard/register', [
+        $user = User::factory()->create();
+        
+        $response = $this->actingAs($user)->post('/dashboard/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => 'password123',
@@ -81,5 +85,11 @@ class AuthTest extends TestCase
 
         $response->assertSessionHasErrors('email');
         $this->assertGuest();
+    }
+
+    public function test_register_page_requires_authentication(): void
+    {
+        $response = $this->get('/dashboard/register');
+        $response->assertRedirect('/dashboard/login');
     }
 }

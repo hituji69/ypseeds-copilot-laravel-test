@@ -5,7 +5,11 @@ use App\Http\Controllers\ListController;
 use App\Http\Controllers\TopController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\InquiryController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Dashboards\TopController as DashboardTopController;
+use App\Http\Controllers\Dashboards\PropertiesController;
+use App\Http\Controllers\Dashboards\InquiriesController;
+use App\Http\Controllers\Dashboards\UsersController;
+use App\Http\Controllers\Dashboards\SettingsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
@@ -17,8 +21,6 @@ Route::post('/inquiry/{property_id}', [InquiryController::class, 'store']);
 
 // Authentication routes under dashboard
 Route::middleware('guest')->prefix('dashboard')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
-    Route::post('register', [RegisteredUserController::class, 'store']);
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 });
@@ -29,9 +31,11 @@ Route::middleware('auth')->group(function () {
 
 // Dashboard routes (require authentication)
 Route::middleware('auth')->prefix('dashboard')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/properties', [DashboardController::class, 'properties'])->name('dashboard.properties');
-    Route::get('/inquiries', [DashboardController::class, 'inquiries'])->name('dashboard.inquiries');
-    Route::get('/users', [DashboardController::class, 'users'])->name('dashboard.users');
-    Route::get('/settings', [DashboardController::class, 'settings'])->name('dashboard.settings');
+    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::get('/', [DashboardTopController::class, 'index'])->name('dashboard');
+    Route::get('/properties', [PropertiesController::class, 'index'])->name('dashboard.properties');
+    Route::get('/inquiries', [InquiriesController::class, 'index'])->name('dashboard.inquiries');
+    Route::get('/users', [UsersController::class, 'index'])->name('dashboard.users');
+    Route::get('/settings', [SettingsController::class, 'index'])->name('dashboard.settings');
 });
