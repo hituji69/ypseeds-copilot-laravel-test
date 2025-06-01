@@ -1,10 +1,10 @@
 <?php
 
-if (!function_exists('getAreaNameMap')) {
+if (!function_exists('areaNameMap')) {
     /**
      * エリア名マッピングテーブル
      */
-    function getAreaNameMap()
+    function areaNameMap()
     {
         return [
             // 23区
@@ -62,13 +62,13 @@ if (!function_exists('getAreaNameMap')) {
     }
 }
 
-if (!function_exists('getJapaneseAreaName')) {
+if (!function_exists('japaneseAreaName')) {
     /**
      * エリア英語名から日本語名に変換
      */
-    function getJapaneseAreaName($area)
+    function japaneseAreaName($area)
     {
-        $areaNameMap = getAreaNameMap();
-        return $areaNameMap[$area] ?? ucfirst($area);
+        $areaNameMapData = areaNameMap();
+        return $areaNameMapData[$area] ?? ucfirst($area);
     }
 }
