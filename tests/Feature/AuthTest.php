@@ -16,7 +16,7 @@ class AuthTest extends TestCase
         
         $response->assertStatus(200);
         $response->assertSee('ログイン');
-        $response->assertSee('メールアドレス');
+        $response->assertSee('ユーザ名またはメールアドレス');
         $response->assertSee('パスワード');
     }
 
@@ -56,7 +56,7 @@ class AuthTest extends TestCase
         ]);
 
         $response = $this->post('/dashboard/login', [
-            'email' => 'test@example.com',
+            'username' => 'test@example.com',
             'password' => 'password123',
         ]);
 
@@ -79,11 +79,11 @@ class AuthTest extends TestCase
     public function test_login_with_invalid_credentials(): void
     {
         $response = $this->post('/dashboard/login', [
-            'email' => 'invalid@example.com',
+            'username' => 'invalid@example.com',
             'password' => 'wrongpassword',
         ]);
 
-        $response->assertSessionHasErrors('email');
+        $response->assertSessionHasErrors('username');
         $this->assertGuest();
     }
 
